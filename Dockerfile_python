@@ -1,0 +1,24 @@
+﻿FROM python:3.9
+
+WORKDIR /usr/src/app
+
+COPY ./ /usr/src/app
+
+RUN pip install --upgrade pip && \
+    pip install flask && \
+    pip install flask-cors
+
+# コンテナの作業ディレクトリを指定
+# WORKDIR /app
+
+# # ローカルからコンテナにコピー
+# COPY ./app /app
+
+# # ビルド時に実行
+# RUN pip install Flask
+# RUN pip install pymysql
+# RUN pip install cryptography
+
+# 起動時に実行
+# CMD ["python", "index.py"]
+# pyhton index.pyという意味
