@@ -1,19 +1,19 @@
 <template>
   <div>
-    <UploadMovie/>
+    <CreateImage/>
     <PlayerCircle/>
   </div>
 </template>
 
 <script>
-import UploadMovie from './components/UploadMovie.vue'
 import PlayerCircle from './components/PlayerCircle.vue'
+import CreateImage from './components/CreateImage.vue'
 
 export default {
   name: 'App',
   components: {
-    UploadMovie,
-    PlayerCircle
+    CreateImage,
+    PlayerCircle,
   }
 }
 </script>

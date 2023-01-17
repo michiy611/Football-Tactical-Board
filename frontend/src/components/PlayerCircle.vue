@@ -2,9 +2,10 @@
   <div class="container">
     <div class="text">Tactical Board</div>
 
-    <canvas id="myCanvas"></canvas>
+    <canvas id="myCanvas">
 
-
+      
+    </canvas>
     <!-- SVG定義 -->
     <svg>
       <circle v-for="(r, idx) in rects" :key="idx"
@@ -13,9 +14,6 @@
         :rx="r.rx"
         :cx="r.x" :cy="r.y" :r="r.r">{{message}}
       </circle>
-      <rect stroke="darkblue" stroke-width="5" fill="none" 
-      x="200" :y="100" :width="1100" :height="600">
-      </rect>
     </svg>
   </div>
 </template>
@@ -38,7 +36,7 @@ export default {
         {
           x: 310,
           y: 410,
-          r: 30,
+          r: 20,
           color: 'blue',
           stroke: 'black',
           team: 'home',
@@ -46,7 +44,7 @@ export default {
         {
           x: 310,
           y: 500,
-          r: 30,
+          r: 20,
           color: 'red',
           stroke: 'black',
           team: 'away',
@@ -126,16 +124,17 @@ export default {
 <style>
 .text {
   height:50px;
-  width:1000px;
+  width:100%;
   font-size:35px;
   text-align: center;
   background-color: tomato;
 }
 
 svg {
-  width : 1500px;
+  width : 70%;
   height: 800px;
   background-color: silver;
   background-image: url('~@/assets/field.jpg');
+  background-repeat:no-repeat;
 }
 </style>
