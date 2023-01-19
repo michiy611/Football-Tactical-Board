@@ -1,27 +1,24 @@
 ﻿<template>
   <div class="container">
-    <div class="text">Tactical Board</div>
-
-    <canvas id="myCanvas">
-
-      
-    </canvas>
     <!-- SVG定義 -->
-    <svg>
-      <circle v-for="(r, idx) in rects" :key="idx"
-        @mousedown="move($event, idx)"
-        :fill="r.color" :stroke="r.stroke"
-        :rx="r.rx"
-        :cx="r.x" :cy="r.y" :r="r.r">{{message}}
-      </circle>
-    </svg>
+    <div class="board">
+      <!-- <div class="board-area"> -->
+        <svg>
+          <circle v-for="(r, idx) in rects" :key="idx"
+            @mousedown="move($event, idx)"
+            :fill="r.color" :stroke="r.stroke"
+            :rx="r.rx"
+            :cx="r.x" :cy="r.y" :r="radius">{{message}}
+          </circle>
+        </svg>
+      <!-- </div> -->
+    </div>
   </div>
 </template>
 
 <script>
 
 export default {
-  name: 'SVGDemo',
   data () {
     return {
       ratio: 1,
@@ -32,19 +29,18 @@ export default {
       beforeMouseX: null,
       beforeMouseY: null,
       selectIdx: 0,
+      radius: window.innerWidth / 90,
       rects: [
         {
-          x: 310,
-          y: 410,
-          r: 20,
-          color: 'blue',
+          x: 30,
+          y: 40,
+          color: 'rgb(192, 192, 192)',
           stroke: 'black',
           team: 'home',
         },
         {
-          x: 310,
-          y: 500,
-          r: 20,
+          x: 30,
+          y: 50,
           color: 'red',
           stroke: 'black',
           team: 'away',
@@ -122,19 +118,27 @@ export default {
 </script>
 
 <style>
-.text {
-  height:50px;
-  width:100%;
-  font-size:35px;
+* {
   text-align: center;
-  background-color: tomato;
 }
 
+.board {
+  /* background-color: silver; */
+  height: 700px;
+}
+
+/* .board-area {
+  width : 60%;
+  height: 700px;
+} */
+
 svg {
-  width : 70%;
-  height: 800px;
-  background-color: silver;
+  width : 60%;
+  height: 90%;
+  background-size: contain;
+  /* background: url('~@/assets/field.jpg'); */
   background-image: url('~@/assets/field.jpg');
   background-repeat:no-repeat;
+  /* padding-bottom: 40%; */
 }
 </style>

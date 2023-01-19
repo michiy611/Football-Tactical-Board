@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="text">Tactical Board</div>
     <CreateImage/>
     <PlayerCircle/>
   </div>
@@ -25,6 +26,14 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin: 0;
+}
+
+.text {
+  height:50px;
+  width:100%;
+  font-size:35px;
+  text-align: center;
+  background-color: tomato;
 }
 </style>

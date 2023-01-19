@@ -31,29 +31,30 @@ def index(path):
     return render_template("index.html")
 
 # @app.route('/', methods=['POST'])
-@app.route('/classification', methods=['POST'])
-def uploadVideo():
-    if request.method == 'POST':
-        base64_mp4 =  request.form['video']
-        # base64_png =  request.form['image']
-        code = base64.b64decode(base64_mp4.split(',')[1]) 
-        # code = base64.b64decode(base64_png.split(',')[1]) 
-        image_decoded = Image.open(BytesIO(code))
-        image_decoded.save(Path(app.config['UPLOAD_FOLDER']) / 'video.mp4')
-        return make_response(jsonify({'result': 'success'}))
-    else: 
-        return make_response(jsonify({'result': 'invalid method'}), 400)
-
-# 画像版(元コード)
-# def uploadImage():
+@app.route('/detect', methods=['POST'])
+# def uploadVideo():
 #     if request.method == 'POST':
-#         base64_png =  request.form['image']
-#         code = base64.b64decode(base64_png.split(',')[1]) 
+#         base64_mp4 =  request.form['video']
+#         # base64_png =  request.form['image']
+#         code = base64.b64decode(base64_mp4.split(',')[1]) 
+#         # code = base64.b64decode(base64_png.split(',')[1]) 
 #         image_decoded = Image.open(BytesIO(code))
-#         image_decoded.save(Path(app.config['UPLOAD_FOLDER']) / 'image.png')
+#         image_decoded.save(Path(app.config['UPLOAD_FOLDER']) / 'video.mp4')
 #         return make_response(jsonify({'result': 'success'}))
 #     else: 
 #         return make_response(jsonify({'result': 'invalid method'}), 400)
+
+# 画像版(元コード)
+def uploadImage():
+    if request.method == 'POST':
+        base64_png =  request.form['image']
+        code = base64.b64decode(base64_png.split(',')[1]) 
+        image_decoded = Image.open(BytesIO(code))
+        image_decoded.save(Path(app.config['UPLOAD_FOLDER']) / 'image.png')
+        print("aaaaa")
+        return make_response(jsonify({'result': 'success'}))
+    else: 
+        return make_response(jsonify({'result': 'invalid method'}), 400)
 
 # app.run(host, port)：hostとportを指定してflaskサーバを起動
 if __name__ == '__main__':

@@ -6,13 +6,17 @@
       <source :src="src" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
     </video>
     <img class="image" :src="image"/>
+    <!-- <input type="file" :src="image"/> -->
+    <!-- <input type="file" :src="image" style="display: none;"/> -->
     <!-- <input type="button" value="一時停止" @click="setCurrentTime()"/> -->
-    <button id="snap" @click="setCurrentTime()">このシーンをインポート</button>
+    <button id="snap" @click="onUploadImage()">このシーンをインポート</button>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 
+const API_URL = 'http://127.0.0.1:5000'
 
 export default {
   data() {
@@ -20,14 +24,15 @@ export default {
       src: null,
       image: [],
       time: 0,
-      isLoading: false
+      isLoading: false,
+      uploadedImage: ''
     }
   },
   methods: {
     handleFileSelect(event) {
       // reset data
       this.src = null
-      this.thumbnails = []
+      // this.thumbnails = []
       this.selected = 0
       
       // varidate file
@@ -38,14 +43,13 @@ export default {
       const reader = new FileReader()
       reader.onload = (evt) => {
         this.src = evt.target.result
-        this.createThumbnails(this.src)
         this.isLoading = false
       }
       reader.readAsDataURL(file)
       this.isLoading = true
     },
     // 動画を停止してその時点での画像を取得
-    setCurrentTime() {
+    onUploadImage() {
       this.image = []
       const canvas = document.createElement('canvas')
       const context = canvas.getContext('2d')
@@ -57,8 +61,24 @@ export default {
       // console.log(Math.ceil(this.time))
       video.pause()
       context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight)
-      this.image.push(canvas.toDataURL('image/jpeg'))
-    },
+      this.image.push(canvas.toDataURL('image/png'))
+
+      let reader = new FileReader()
+      reader.onload = (e) => {
+        this.uploadedImage = e.target.result
+      }
+
+      console.log(this.uploadedImage)
+      // reader.readAsDataURL(this.image)
+
+      // 画像をサーバーへアップロード
+      var params = new FormData()
+      params.append('image', this.uploadedImage)
+      // Axiosを用いてFormData化したデータをFlaskへPostしています。
+      axios.post(`${API_URL}/detect`, params).then(function (response) {
+        console.log(response)
+      })
+    }
   }
 }
 </script>
