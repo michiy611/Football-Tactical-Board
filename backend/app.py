@@ -1,6 +1,7 @@
 ﻿# render_template：参照するテンプレートを指定
 # jsonify：json出力
 from flask import Flask, render_template, jsonify, request, make_response
+from detect import getPos
 
 # CORS：Ajax通信するためのライブラリ
 from flask_restful import Api, Resource
@@ -10,6 +11,7 @@ from PIL import Image
 from pathlib import Path
 from io import BytesIO
 import base64
+import cv2
 
 # static_folder：vueでビルドした静的ファイルのパスを指定
 # template_folder：vueでビルドしたindex.htmlのパスを指定
@@ -50,9 +52,18 @@ def uploadImage():
         base64_png =  request.form['image']
         code = base64.b64decode(base64_png.split(',')[1]) 
         image_decoded = Image.open(BytesIO(code))
+        # image_decoded = cv2.imread(BytesIO(code))
+        # image_decoded = cv2.imread(code)
         image_decoded.save(Path(app.config['UPLOAD_FOLDER']) / 'image.png')
-        print("aaaaa")
-        return make_response(jsonify({'result': 'success'}))
+        # cv2.imwrite(Path(app.config['UPLOAD_FOLDER']) / 'image.png', image_decoded)
+        # pos_json = getPos(image_decoded)
+        # pos_json = getPos(image_decoded)
+        print(Path(app.config['UPLOAD_FOLDER']) / 'image.png')
+        pos = getPos(Path(app.config['UPLOAD_FOLDER']) / 'image.png')
+        print(pos)
+        # return pos_json
+        # return make_response(jsonify({'result': 'success'}))
+        return make_response(jsonify({'results': pos}))
     else: 
         return make_response(jsonify({'result': 'invalid method'}), 400)
 

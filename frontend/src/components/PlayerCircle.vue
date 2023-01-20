@@ -2,6 +2,9 @@
   <div class="container">
     <!-- SVG定義 -->
     <div class="board">
+      <ul>
+        <li v-for="result in results" :key="result.id"> {{ result }}</li>
+      </ul>
       <!-- <div class="board-area"> -->
         <svg>
           <circle v-for="(r, idx) in rects" :key="idx"
@@ -19,6 +22,7 @@
 <script>
 
 export default {
+  props: 'results',
   data () {
     return {
       ratio: 1,

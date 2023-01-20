@@ -10,6 +10,10 @@
     <!-- <input type="file" :src="image" style="display: none;"/> -->
     <!-- <input type="button" value="一時停止" @click="setCurrentTime()"/> -->
     <button id="snap" @click="onUploadImage()">このシーンをインポート</button>
+    <h2>Results</h2>
+    <!-- <ul>
+      <li v-for="result in results" :key="result.id"> {{ result }}</li>
+    </ul> -->
   </div>
 </template>
 
@@ -19,13 +23,15 @@ import axios from 'axios'
 const API_URL = 'http://127.0.0.1:5000'
 
 export default {
+  // delimiters: ['[[', ']]'],
   data() {
     return {
       src: null,
       image: [],
       time: 0,
       isLoading: false,
-      uploadedImage: ''
+      uploadedImage: '',
+      results: []
     }
   },
   methods: {
@@ -50,6 +56,7 @@ export default {
     },
     // 動画を停止してその時点での画像を取得
     onUploadImage() {
+      let self = this
       this.image = []
       const canvas = document.createElement('canvas')
       const context = canvas.getContext('2d')
@@ -63,21 +70,28 @@ export default {
       context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight)
       this.image.push(canvas.toDataURL('image/png'))
 
-      let reader = new FileReader()
-      reader.onload = (e) => {
-        this.uploadedImage = e.target.result
-      }
+      // let reader = new FileReader()
+      // reader.onload = (e) => {
+      //   this.uploadedImage = e.target.result
+      // }
 
-      console.log(this.uploadedImage)
+      // console.log(this.uploadedImage)
       // reader.readAsDataURL(this.image)
 
       // 画像をサーバーへアップロード
       var params = new FormData()
-      params.append('image', this.uploadedImage)
+      params.append('image', this.image)
+      // params.append('image', this.uploadedImage)
       // Axiosを用いてFormData化したデータをFlaskへPostしています。
       axios.post(`${API_URL}/detect`, params).then(function (response) {
-        console.log(response)
+        self.results = response.data.results;
+        for (const result of self.results) {
+          console.log(result)
+        }
+        
       })
+
+      this.$emit('my-click', this.results)
     }
   }
 }

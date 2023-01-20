@@ -25,3 +25,11 @@ frame : {cls : gk_home, gk_home, fp_home, fp_away, referee} {pos : x_pos, ypos}
 Frame,Time [s],Player25,,　　　Player15,,Player16,,Player17,,Player18,,Player19,,Player20,,Player21,,Player22,,Player23,,Player24,,Player26,,Player27,,Player28,,Ball,
 1, 　　0.04,　　0.90509,0.47462,0.58393,0.20794,0.67658,0.4671,0.6731,0.76476,0.40783,0.61525,0.45472,0.38709,0.5596,0.67775,0.55243,0.43269,0.50067,0.94322,0.43693,0.05002,0.37833,0.27383,NaN,NaN,NaN,NaN,NaN,NaN,0.45472,0.38709
 フレームの表示
+
+
+
+更新方法(別のプロンプトで)
+cd frontend
+npm run build
+cd backend
+flask run
