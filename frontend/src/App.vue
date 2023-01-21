@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="text">Tactical Board</div>
+    <h1 class="text">Tactical Board</h1>
     <!-- <CreateImage/> -->
     <CreateImage @my-click="emitData"/>
     <PlayerCircle :results="results"/>

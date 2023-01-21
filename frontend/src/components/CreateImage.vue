@@ -5,12 +5,13 @@
     <video controls v-if="src" id="video">
       <source :src="src" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
     </video>
-    <img class="image" :src="image"/>
+    <!-- <img class="image" :src="image"/> -->
     <!-- <input type="file" :src="image"/> -->
     <!-- <input type="file" :src="image" style="display: none;"/> -->
     <!-- <input type="button" value="一時停止" @click="setCurrentTime()"/> -->
-    <button class="uploadbtn" @click="onUploadImage()">このシーンを再現</button>
-    <h2>Results</h2>
+    <a class="btn uploadbtn" @click="onUploadImage()"><span>Capture this moment!!!</span></a>
+    <!-- <button class="uploadbtn" @click="onUploadImage()">Clip this moment!!!</button> -->
+    <!-- <h2>Results</h2> -->
     <!-- <ul>
       <li v-for="result in results" :key="result.id"> {{ result }}</li>
     </ul> -->
@@ -133,6 +134,70 @@ video {
   display: block;
   max-width: 50%;
   margin: 10px auto;
+}
+
+.btn
+{
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.5;
+  position: relative;
+  display: inline-block;
+  padding: 1rem 4rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  color: #212529;
+  border-radius: 0.5rem;
+}
+
+.uploadbtn {
+  overflow: hidden;
+
+  padding: 1.5rem 6rem;
+
+  color: #fff;
+  border-radius: 0;
+  background: #000;
+}
+
+.uploadbtn span {
+  position: relative;
+}
+
+.uploadbtn:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100px;
+  height: 100px;
+
+  content: '';
+  -webkit-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+  -webkit-transform: translateX(-80%) translateY(-25px);
+  transform: translateX(-80%) translateY(-25px);
+
+  border-radius: 50%;
+  background: #eb6100;
+}
+
+.uploadbtn:hover:before {
+  width: 400px;
+  height: 400px;
+
+  -webkit-transform: translateX(-1%) translateY(-175px);
+
+  transform: translateX(-1%) translateY(-175px);
 }
 
 .image {

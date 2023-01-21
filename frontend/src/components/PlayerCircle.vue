@@ -8,7 +8,7 @@
           <circle v-for="(r, idx) in coords" :key="idx"
             @mousedown="move($event, idx)"
             :fill="r.color" :stroke="stroke"
-            :cx="parseInt(r.x / field_w * 640)" :cy="parseInt(r.y / field_h * 384)" :r="radius">
+            :cx="parseInt(r.x * field_w / 115)" :cy="parseInt(r.y * field_h / 75)" :r="radius">
           </circle>
         </svg>
       <!-- </div> -->
@@ -30,27 +30,11 @@ export default {
       beforeMouseX: null,
       beforeMouseY: null,
       selectIdx: 0,
-      radius: window.innerWidth / 90,
+      radius: window.innerWidth / 150,
       coords: [],
       stroke: 'black',
       field_w: window.innerWidth * 0.6,
-      field_h: window.innerWidth * 0.4,
-      // rects: [
-      //   {
-      //     x: 30,
-      //     y: 40,
-      //     color: 'rgb(192, 192, 192)',
-      //     stroke: 'black',
-      //     team: 'home',
-      //   },
-      //   {
-      //     x: 30,
-      //     y: 50,
-      //     color: 'red',
-      //     stroke: 'black',
-      //     team: 'away',
-      //   },
-      // ],
+      field_h: window.innerWidth * 0.39,
     } 
   },
   watch: {
@@ -61,6 +45,8 @@ export default {
   // マウス操作関連
   mounted () {
     console.log('MOUNT LISTENER ON')
+    console.log(this.field_w)
+    console.log(this.field_h)
     document.addEventListener('mouseup', this.mouseUp)
     document.addEventListener('mousemove', this.mouseMove)
   },
@@ -144,7 +130,7 @@ export default {
 
 svg {
   width : 60%;
-  height: 90%;
+  height: 200%;
   background-size: contain;
   /* background: url('~@/assets/field.jpg'); */
   background-image: url('~@/assets/field.jpg');

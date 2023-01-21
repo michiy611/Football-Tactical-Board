@@ -28,41 +28,24 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # 任意のリクエストを受け取った時、index.htmlを参照
 @app.route('/', defaults={'path': ''})
+
 @app.route('/<path:path>')
 def index(path):
     return render_template("index.html")
 
-# @app.route('/', methods=['POST'])
 @app.route('/detect', methods=['POST'])
-# def uploadVideo():
-#     if request.method == 'POST':
-#         base64_mp4 =  request.form['video']
-#         # base64_png =  request.form['image']
-#         code = base64.b64decode(base64_mp4.split(',')[1]) 
-#         # code = base64.b64decode(base64_png.split(',')[1]) 
-#         image_decoded = Image.open(BytesIO(code))
-#         image_decoded.save(Path(app.config['UPLOAD_FOLDER']) / 'video.mp4')
-#         return make_response(jsonify({'result': 'success'}))
-#     else: 
-#         return make_response(jsonify({'result': 'invalid method'}), 400)
-
-# 画像版(元コード)
 def uploadImage():
     if request.method == 'POST':
+
         base64_png =  request.form['image']
         code = base64.b64decode(base64_png.split(',')[1]) 
         image_decoded = Image.open(BytesIO(code))
-        # image_decoded = cv2.imread(BytesIO(code))
-        # image_decoded = cv2.imread(code)
+        
         image_decoded.save(Path(app.config['UPLOAD_FOLDER']) / 'image.png')
-        # cv2.imwrite(Path(app.config['UPLOAD_FOLDER']) / 'image.png', image_decoded)
-        # pos_json = getPos(image_decoded)
-        # pos_json = getPos(image_decoded)
-        print(Path(app.config['UPLOAD_FOLDER']) / 'image.png')
+
+        # 選手とボールの検出
         pos = getPos(Path(app.config['UPLOAD_FOLDER']) / 'image.png')
-        print(pos)
-        # return pos_json
-        # return make_response(jsonify({'result': 'success'}))
+        
         return make_response(jsonify({'results': pos}))
     else: 
         return make_response(jsonify({'result': 'invalid method'}), 400)

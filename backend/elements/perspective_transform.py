@@ -219,7 +219,5 @@ class Perspective_Transform():
         opt.no_flip = True  # no flip
         opt.continue_train = False
 
-        print(112)
-
         self.model = create_model(opt)
         return self.model
