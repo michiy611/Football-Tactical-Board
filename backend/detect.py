@@ -28,6 +28,8 @@ def getPos(filename):
   # img = filename
   img = cv2.imread(filename)
 
+  img_tmp =  img
+
   img_copy = img.copy()
   yoloOutput = detect(img)
   # yoloOutput = detector.detect(img)
@@ -43,6 +45,8 @@ def getPos(filename):
       xyxy = [obj['bbox'][0][0], obj['bbox'][0][1], obj['bbox'][1][0], obj['bbox'][1][1]]
       x_center = (xyxy[0] + xyxy[2]) / 2 
       y_center = xyxy[3]
+
+      cv2.circle(img_tmp, (x_center, y_center), 10, (255, 0, 0), -1)
       
       if obj['label'] == 'player':
         coords = transform_matrix(M, (x_center, y_center), (h, w), (640, 384))
@@ -51,7 +55,7 @@ def getPos(filename):
         try:
           color = detect_color(img_copy[xyxy[1]:xyxy[3], xyxy[0]:xyxy[2]])
           pos = {'label': 'player',
-                 'color': color,
+                 'color': 'rgb(' + str(color[0]) + ', ' + str(color[1]) + ', ' + str(color[2]) + ')',
                  'x': coords[0],
                  'y': coords[1]
                 }
@@ -62,13 +66,15 @@ def getPos(filename):
         coords = transform_matrix(M, (x_center, y_center), (h, w), (640, 384))
         # coords = transform_matrix(M, (x_center, y_center), (h, w), (115, 74))
         pos = {'label': 'ball',
-                'color': [0, 0, 0],
+                'color': 'rgb(0, 0, 0)',
                 'x': coords[0],
                 'y': coords[1]
               }
       
       data.append(pos)
     
+    cv2.imwrite('./uploads/detect_test.png', img_tmp)
+
   return data
 
 if __name__ == '__main__':

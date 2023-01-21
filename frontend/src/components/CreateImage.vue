@@ -9,7 +9,7 @@
     <!-- <input type="file" :src="image"/> -->
     <!-- <input type="file" :src="image" style="display: none;"/> -->
     <!-- <input type="button" value="一時停止" @click="setCurrentTime()"/> -->
-    <button id="snap" @click="onUploadImage()">このシーンをインポート</button>
+    <button class="uploadbtn" @click="onUploadImage()">このシーンを再現</button>
     <h2>Results</h2>
     <!-- <ul>
       <li v-for="result in results" :key="result.id"> {{ result }}</li>
@@ -24,6 +24,7 @@ const API_URL = 'http://127.0.0.1:5000'
 
 export default {
   // delimiters: ['[[', ']]'],
+  // props: ['results'],
   data() {
     return {
       src: null,
@@ -88,10 +89,10 @@ export default {
         for (const result of self.results) {
           console.log(result)
         }
-        
+        self.$emit('my-click', self.results)
       })
 
-      this.$emit('my-click', this.results)
+      // this.$parent.results = this.results
     }
   }
 }

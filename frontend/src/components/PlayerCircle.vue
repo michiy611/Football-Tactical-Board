@@ -1,17 +1,14 @@
 ﻿<template>
   <div class="container">
     <!-- SVG定義 -->
+
     <div class="board">
-      <ul>
-        <li v-for="result in results" :key="result.id"> {{ result }}</li>
-      </ul>
       <!-- <div class="board-area"> -->
         <svg>
-          <circle v-for="(r, idx) in rects" :key="idx"
+          <circle v-for="(r, idx) in coords" :key="idx"
             @mousedown="move($event, idx)"
-            :fill="r.color" :stroke="r.stroke"
-            :rx="r.rx"
-            :cx="r.x" :cy="r.y" :r="radius">{{message}}
+            :fill="r.color" :stroke="stroke"
+            :cx="parseInt(r.x / field_w * 640)" :cy="parseInt(r.y / field_h * 384)" :r="radius">
           </circle>
         </svg>
       <!-- </div> -->
@@ -22,7 +19,7 @@
 <script>
 
 export default {
-  props: 'results',
+  props: ['results'],
   data () {
     return {
       ratio: 1,
@@ -34,24 +31,33 @@ export default {
       beforeMouseY: null,
       selectIdx: 0,
       radius: window.innerWidth / 90,
-      rects: [
-        {
-          x: 30,
-          y: 40,
-          color: 'rgb(192, 192, 192)',
-          stroke: 'black',
-          team: 'home',
-        },
-        {
-          x: 30,
-          y: 50,
-          color: 'red',
-          stroke: 'black',
-          team: 'away',
-        },
-      ],
+      coords: [],
+      stroke: 'black',
+      field_w: window.innerWidth * 0.6,
+      field_h: window.innerWidth * 0.4,
+      // rects: [
+      //   {
+      //     x: 30,
+      //     y: 40,
+      //     color: 'rgb(192, 192, 192)',
+      //     stroke: 'black',
+      //     team: 'home',
+      //   },
+      //   {
+      //     x: 30,
+      //     y: 50,
+      //     color: 'red',
+      //     stroke: 'black',
+      //     team: 'away',
+      //   },
+      // ],
     } 
   },
+  watch: {
+    results: function() {
+      this.coords = this.results
+    }
+  },  
   // マウス操作関連
   mounted () {
     console.log('MOUNT LISTENER ON')
@@ -92,12 +98,12 @@ export default {
       }
       this.beforeMouseX = mouseX
       this.beforeMouseY = mouseY
-      var tempX = dx + Number(this.rects[this.selectIdx].x)
-      var tempY = dy + Number(this.rects[this.selectIdx].y)
+      var tempX = dx + Number(this.coords[this.selectIdx].x)
+      var tempY = dy + Number(this.coords[this.selectIdx].y)
       //var tempX = dx + Number(this.polygons[this.selectIdx].x)
       //var tempY = dy + Number(this.polygons[this.selectIdx].y)
-      if (tempX > 0) this.rects[this.selectIdx].x = tempX
-      if (tempY > 0) this.rects[this.selectIdx].y = tempY
+      if (tempX > 0) this.coords[this.selectIdx].x = tempX
+      if (tempY > 0) this.coords[this.selectIdx].y = tempY
       e.preventDefault()
     },
     // drawImage(src) {

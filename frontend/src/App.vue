@@ -1,11 +1,8 @@
 <template>
   <div>
     <div class="text">Tactical Board</div>
-    <CreateImage @my-click="emitData()"/>
-    <ul>
-      <li v-for="result in results" :key="result.id"> {{ result }}</li>
-    </ul>
-    <h1>afafa</h1>
+    <!-- <CreateImage/> -->
+    <CreateImage @my-click="emitData"/>
     <PlayerCircle :results="results"/>
   </div>
 </template>
@@ -28,7 +25,7 @@ export default {
   methods: {
     emitData(results) {
       this.results = results;
-    }
+    },
   }
 }
 </script>

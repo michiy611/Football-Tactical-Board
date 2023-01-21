@@ -35,6 +35,8 @@ def detect(frame):
     
     img = cv2.resize(frame, (640,384))
 
+    temp_img = frame
+
     # Convert
     img = img.transpose((2, 0, 1))[::-1]  # HWC to CHW, BGR to RGB
     img = np.ascontiguousarray(img)
@@ -64,14 +66,22 @@ def detect(frame):
                 ymin = int(p[1] * frame.shape[0] /384)
                 xmax = int(p[2] * frame.shape[1] /640)
                 ymax = int(p[3] * frame.shape[0] /384)
+                # xmin = int(p[0])
+                # ymin = int(p[1])
+                # xmax = int(p[2])
+                # ymax = int(p[3])
 
                 item = {'label': label,
                         'bbox' : [(xmin,ymin),(xmax,ymax)],
                         'score': score,
                         'cls' : int(p[5])}
 
+                cv2.rectangle(temp_img, (xmin,ymin), (xmax,ymax), (255,0,0), 10)
+
                 items.append(item)
 
+    #  検出できているかどうかの確認
+    cv2.imwrite('./uploads/bbox_image.png', temp_img)
     # for index, p in pred.iterrows():
     #     if int(p[5]) in list(classes.keys()): 
     #         score = p[4]
