@@ -1,20 +1,12 @@
 ﻿<template>
-  <div id="app">
-    <label for="input-video">{{ isLoading ? '読み込み中...' : '動画を選択'}}</label>
+  <div>
+    <label class="input-area" for="input-video">{{ isLoading ? 'Loading...' : 'Upload Video'}}</label>
     <input id="input-video" type="file" accept="video/mp4,video/x-m4v" @change="handleFileSelect">
     <video controls v-if="src" id="video">
       <source :src="src" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
     </video>
-    <!-- <img class="image" :src="image"/> -->
-    <!-- <input type="file" :src="image"/> -->
-    <!-- <input type="file" :src="image" style="display: none;"/> -->
-    <!-- <input type="button" value="一時停止" @click="setCurrentTime()"/> -->
     <a class="btn uploadbtn" @click="onUploadImage()"><span>Capture this moment!!!</span></a>
-    <!-- <button class="uploadbtn" @click="onUploadImage()">Clip this moment!!!</button> -->
-    <!-- <h2>Results</h2> -->
-    <!-- <ul>
-      <li v-for="result in results" :key="result.id"> {{ result }}</li>
-    </ul> -->
+    <h3 class="wait">Wait about 5 seconds...</h3>
   </div>
 </template>
 
@@ -106,6 +98,7 @@ export default {
   border-radius: 4px;
   padding: 20px;
   transition: all 0.2s;
+  /* width: 100%; */
 }
 
 input {
@@ -113,9 +106,10 @@ input {
 }
 
 label {
+  font-size: 2em;
   display: block;
   cursor: pointer;
-  width: 100%;
+  width: 60%;
   padding: 10px;
   text-align: center;
   color: #ccc;
@@ -123,6 +117,8 @@ label {
   background: #eee;
   box-sizing: border-box;
   transition: all 0.2s ease-out;
+  margin-left: 20%;
+  margin-bottom: 1.5em;
 }
 
 label:hover {
@@ -163,7 +159,7 @@ video {
   overflow: hidden;
 
   padding: 1.5rem 6rem;
-
+  margin-bottom: 2rem;
   color: #fff;
   border-radius: 0;
   background: #000;
@@ -199,21 +195,9 @@ video {
 
   transform: translateX(-1%) translateY(-175px);
 }
-
-.image {
-  width: 30%;
+.wait {
+  color: #fff;
+  margin-bottom: 3em;
 }
-
-.thumbnail {
-  width: 20%;
-  height: 20%;
-  box-sizing: border-box;
-  border: 4px solid transparent;
-  transition: all 0.2s;
-}
-
-/* .thumbnail-list.active {
-  border: 4px solid #06c;
-} */
 
 </style>

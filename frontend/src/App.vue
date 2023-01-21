@@ -1,7 +1,8 @@
 <template>
-  <div>
-    <h1 class="text">Tactical Board</h1>
+  <div id="app">
+    <!-- <h1 class="text">Tactical Board</h1> -->
     <!-- <CreateImage/> -->
+    <TitleHeader/>
     <CreateImage @my-click="emitData"/>
     <PlayerCircle :results="results"/>
   </div>
@@ -10,10 +11,12 @@
 <script>
 import PlayerCircle from './components/PlayerCircle.vue'
 import CreateImage from './components/CreateImage.vue'
+import TitleHeader from './components/TitleHeader.vue'
 
 export default {
   name: 'App',
   components: {
+    TitleHeader,
     CreateImage,
     PlayerCircle,
   },
@@ -37,7 +40,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin: 0;
+  background-color: #2c3e50;
+  height: 150em;
 }
 
 .text {
