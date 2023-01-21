@@ -4,13 +4,15 @@
 
     <div class="board">
       <!-- <div class="board-area"> -->
-        <svg>
-          <circle v-for="(r, idx) in coords" :key="idx"
-            @mousedown="move($event, idx)"
-            :fill="r.color" :stroke="stroke"
-            :cx="parseInt(r.x * field_w / 115)" :cy="parseInt(r.y * field_h / 75)" :r="radius">
-          </circle>
-        </svg>
+        <!-- <canvas id="myCanvas" @mousedown="dragStart" @mouseup="dragEnd" @mouseout="dragEnd" @mousemove="draw"> -->
+      <svg class="circle">
+        <circle v-for="(r, idx) in coords" :key="idx"
+          @mousedown="move($event, idx)"
+          :fill="r.color" :stroke="stroke"
+          :cx="parseInt(r.x * field_w / 115)" :cy="parseInt(r.y * field_h / 75)" :r="radius">
+        </circle>
+      </svg>
+        <!-- </canvas> -->
       <!-- </div> -->
     </div>
   </div>
@@ -92,41 +94,40 @@ export default {
       if (tempY > 0) this.coords[this.selectIdx].y = tempY
       e.preventDefault()
     },
-    // drawImage(src) {
-    //     var canvas = document.getElementById("canvas")
-    //     var context = canvas.getContext('2d')
-    //     var image = new Image()
-    //     image.src = src;
-    //     image.onload = function() {
-    //         canvas.width = image.width
-    //         canvas.height = image.height
-    //         context.drawImage(image, 0, 0)
-    //     }
-
-    //     context.beginPath();
-    //     context.arc(100, 100, 50, 0, 2 * Math.PI);
-    //     context.fillStyle = "#00c2bc";
-    //     context.fill();
-    // }
   },
 
 }
 </script>
 
-<style>
+<style scoped>
 * {
   text-align: center;
 }
 
+/* #myCanvas {
+ border: 1px solid #000000;
+ width: 60%;
+ height: 200%;
+
+ background-size: contain;
+  /* background: url('~@/assets/field.jpg'); */
+  /* background-image: url('~@/assets/field.jpg'); */
+  /* background-repeat:no-repeat; */
+/* } */ 
+
 .board {
   /* background-color: silver; */
-  height: 700px;
+  height: 1000px;
 }
 
-/* .board-area {
-  width : 60%;
-  height: 700px;
+/* .circle {
+  z-index: 10;
 } */
+
+/* .board-area {
+  /* width : 60%; */
+  /* height: 200%; */
+/* }  */
 
 svg {
   width : 60%;
@@ -135,6 +136,6 @@ svg {
   /* background: url('~@/assets/field.jpg'); */
   background-image: url('~@/assets/field.jpg');
   background-repeat:no-repeat;
-  /* padding-bottom: 40%; */
+  padding-bottom: 40%;
 }
 </style>

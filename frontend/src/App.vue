@@ -4,22 +4,25 @@
     <!-- <CreateImage/> -->
     <TitleHeader/>
     <CreateImage @my-click="emitData"/>
-    <PlayerCircle :results="results"/>
+    <!-- <PlayerCircle :results="results"/> -->
+    <CanvasField :results="results"/>
   </div>
 </template>
 
 <script>
-import PlayerCircle from './components/PlayerCircle.vue'
+// import PlayerCircle from './components/PlayerCircle.vue'
 import CreateImage from './components/CreateImage.vue'
 import TitleHeader from './components/TitleHeader.vue'
+import CanvasField from './components/CanvasField.vue'
 
 export default {
   name: 'App',
   components: {
     TitleHeader,
     CreateImage,
-    PlayerCircle,
-  },
+    // PlayerCircle,
+    CanvasField
+},
   data() {
     return {
       results: []
