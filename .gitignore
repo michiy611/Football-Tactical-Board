@@ -6,5 +6,5 @@
 *.t7
 *.pt
 *.mat
-*.mp4
+# *.mp4
 .ipynb_checkpoints/
