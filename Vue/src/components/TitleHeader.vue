@@ -16,7 +16,7 @@
   font-size: 60px;
   color: #fff;
   background: #000;
-  height: 2em;
+  height: 1.5em;
   display: flex;
   justify-content: center;
   align-items: center;

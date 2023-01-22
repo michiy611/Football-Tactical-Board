@@ -1,18 +1,9 @@
 ﻿# Tactical Board Generater
 サッカーの試合映像から、作戦ボード好きなシーンを再現する。
 
-
-## 
-```
-cd backend
-flask run
-```
-
-"hoge"が何かを簡潔に紹介する
-
 # DEMO
 
-"hoge"の魅力が直感的に伝えわるデモ動画や図解を載せる
+![](demo.mp4)
 
 # Features
 
