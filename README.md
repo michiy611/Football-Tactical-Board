@@ -42,6 +42,6 @@ pip install requirements.txt
 # Usage
 ```bash
 git clone https://github.com/michiy611/Football-Tactical-Board.git
-cd backend
+cd Flask
 flask run
 ```
