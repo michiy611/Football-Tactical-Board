@@ -12,6 +12,9 @@
 
 そんな悩みを解決するアプリケーションを作りました。
 
+
+画像処理部分のみ（https://github.com/michiy611/Football-Hawk-Eye-View）
+
 # Machine Learning
 ## Yoloによる、人物・ボールの検出  
 yoloを用いて学習を行い、モデルを作成する
