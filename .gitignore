@@ -8,3 +8,15 @@
 *.mat
 # *.mp4
 .ipynb_checkpoints/
+.venv/
+
+# 依存パッケージ（npm install で復元）
+node_modules/
+
+# 実行時に生成される画像
+Flask/uploads/*
+!Flask/uploads/.gitkeep
+
+# 学習済みモデル・データ（GitHub Releases で配布）
+Flask/weights/*
+!Flask/weights/.gitkeep

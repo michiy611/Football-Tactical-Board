@@ -34,17 +34,72 @@ yoloを用いて学習を行い、モデルを作成する
 3. Perspective Transfom モジュールを使用して、ホモグラフィ行列を生成
 
 
+# Requirements
+
+- Python 3.9
+- CPU で動作します（GPU は不要）
+- Node.js は不要です（ビルド済みのフロントエンド `Vue/dist` を Flask が配信します）
+
 # Installation
 
-Requirementで列挙したライブラリなどのインストール方法を説明する
+### 1. リポジトリを取得
 
 ```bash
-pip install requirements.txt
+git clone https://github.com/michiy611/Football-Tactical-Board.git
+cd Football-Tactical-Board/Flask
+```
+
+### 2. 学習済みモデルを配置
+
+[Releases](https://github.com/michiy611/Football-Tactical-Board/releases) から重みファイルをダウンロードし、`Flask/weights/` に以下の構成で配置します。
+
+```
+Flask/weights/
+├── best.pt                     # YOLOv5（選手・ボール検出）
+├── deep_network.pth            # カメラ姿勢推定用の特徴抽出ネットワーク
+├── data/
+│   ├── worldcup2014.mat
+│   └── deep/feature_camera_91k.mat
+└── pytorch-two-GAN-models/
+    └── soccer_seg_detection_pix2pix/
+        ├── detec_latest_net_G.pth
+        └── seg_latest_net_G.pth
+```
+
+### 3. ライブラリをインストール
+
+```bash
+python -m venv .venv
+# Windows (PowerShell)
+.\.venv\Scripts\Activate.ps1
+# macOS / Linux
+source .venv/bin/activate
+
+pip install torch==2.8.0 torchvision==0.23.0 --index-url https://download.pytorch.org/whl/cpu
+pip install -r requirements.txt
 ```
 
 # Usage
+
 ```bash
-git clone https://github.com/michiy611/Football-Tactical-Board.git
-cd Flask
-flask run
+# Windows (PowerShell)
+$env:TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD = "1"
+# macOS / Linux
+export TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=1
+
+python app.py
 ```
+
+ブラウザで http://127.0.0.1:5000 を開きます。
+
+> `TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD` は、PyTorch 2.6 以降で `torch.load` の既定動作が変わったため、2023 年に保存したモデルを読み込むために必要です。
+>
+> 初回起動時は `torch.hub` が YOLOv5 のコードを GitHub から取得するため、インターネット接続が必要です。
+
+# Credits
+
+本プロジェクトは以下のオープンソースを利用しています。
+
+- [ultralytics/yolov5](https://github.com/ultralytics/yolov5) (GPL-3.0) — 物体検出（`Flask/yolov5/`）
+- [lood339/pytorch-two-GAN](https://github.com/lood339/pytorch-two-GAN) — フィールドの領域分割・ライン検出（`Flask/perspective_transform/`）
+- [lood339/SCCvSD](https://github.com/lood339/SCCvSD) — Sports Camera Calibration via Synthetic Data（カメラ姿勢の推定・ホモグラフィ）
