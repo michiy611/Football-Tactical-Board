@@ -26,6 +26,9 @@ CORS(app)
 UPLOAD_FOLDER = './uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+# Flask 3.1 以降はフォーム項目の上限が 500KB になったため、base64 画像を受け取れるよう引き上げる
+app.config['MAX_FORM_MEMORY_SIZE'] = 50 * 1024 * 1024
+
 # 任意のリクエストを受け取った時、index.htmlを参照
 @app.route('/', defaults={'path': ''})
 
