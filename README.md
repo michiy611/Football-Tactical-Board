@@ -103,6 +103,5 @@ python app.py
 
 本プロジェクトは以下のオープンソースを利用しています。
 
-- [ultralytics/yolov5](https://github.com/ultralytics/yolov5) (GPL-3.0) — 物体検出（`Flask/yolov5/`）
-- [lood339/pytorch-two-GAN](https://github.com/lood339/pytorch-two-GAN) — フィールドの領域分割・ライン検出（`Flask/perspective_transform/`）
-- [lood339/SCCvSD](https://github.com/lood339/SCCvSD) — Sports Camera Calibration via Synthetic Data（カメラ姿勢の推定・ホモグラフィ）
+- [YOLOv5](https://github.com/ultralytics/yolov5) — 選手・ボールの検出
+- [pix2pix](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix) — フィールドのライン抽出
